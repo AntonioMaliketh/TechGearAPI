@@ -9,6 +9,13 @@ import lombok.Data;
 @Data
 public class Hardware {
 
+    public Hardware(DadosCadastroHardware dados) {
+        this.tipo=dados.tipo();
+        this.produto=dados.produto();
+        this.marca=dados.marca();
+        this.quantidade=dados.quantidade();
+    }
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
