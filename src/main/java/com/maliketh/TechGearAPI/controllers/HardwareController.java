@@ -3,6 +3,9 @@ package com.maliketh.TechGearAPI.controllers;
 import com.maliketh.TechGearAPI.hardware.DadosCadastroHardware;
 import com.maliketh.TechGearAPI.hardware.Hardware;
 import com.maliketh.TechGearAPI.hardware.HardwareRepository;
+
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +20,7 @@ public class HardwareController {
     private HardwareRepository repository;
 
     @PostMapping
-    public void cadastrar(@RequestBody DadosCadastroHardware dados) {
+    public void cadastrar(@RequestBody @Valid DadosCadastroHardware dados) {
         repository.save(new Hardware(dados));
     }
 }

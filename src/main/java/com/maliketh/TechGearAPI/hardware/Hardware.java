@@ -25,5 +25,5 @@ public class Hardware {
 
     @Enumerated(EnumType.STRING)
     private Marca marca;
-    private String quantidade;
+    private int quantidade;
 }

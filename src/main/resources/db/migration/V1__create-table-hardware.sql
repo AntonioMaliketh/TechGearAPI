@@ -3,7 +3,7 @@ create table hardware(
     tipo varchar (100) not null,
     produto varchar (100) not null,
     marca varchar (100) not null,
-    quantidade varchar (100) not null,
+    quantidade int (20) not null,
 
     primary key (id)
 );
