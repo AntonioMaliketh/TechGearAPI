@@ -1,5 +1,6 @@
 package com.maliketh.TechGearAPI.controllers;
 
+import com.maliketh.TechGearAPI.hardware.DadosAtualizarHardware;
 import com.maliketh.TechGearAPI.hardware.DadosCadastroHardware;
 import com.maliketh.TechGearAPI.hardware.DadosListagemHardware;
 import com.maliketh.TechGearAPI.hardware.Hardware;
@@ -13,6 +14,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,5 +35,12 @@ public class HardwareController {
     @GetMapping
     public List<DadosListagemHardware> listar (){
         return repository.findAll().stream().map(DadosListagemHardware::new).toList();
+    }
+
+    @PutMapping
+    @Transactional
+    public void atualizar(@RequestBody @Valid DadosAtualizarHardware dados) {
+        var hardware = repository.getReferenceById(dados.id());
+        hardware.atualizarinformacoes(dados);
     }
 }
