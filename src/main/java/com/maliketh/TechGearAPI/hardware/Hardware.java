@@ -9,6 +9,10 @@ import lombok.Data;
 @Data
 public class Hardware {
 
+    public Hardware() {
+        
+    }
+
     public Hardware(DadosCadastroHardware dados) {
         this.tipo=dados.tipo();
         this.produto=dados.produto();
