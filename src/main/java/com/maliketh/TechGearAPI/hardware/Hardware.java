@@ -15,6 +15,7 @@ public class Hardware {
     }
 
     public Hardware(DadosCadastroHardware dados) {
+        this.ativo = true;
         this.tipo = dados.tipo();
         this.produto = dados.produto();
         this.marca = dados.marca();
@@ -24,12 +25,18 @@ public class Hardware {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Enumerated(EnumType.STRING)
     private Tipo tipo;
+
     private String produto;
+
     @Enumerated(EnumType.STRING)
     private Marca marca;
+
     private int quantidade;
+
+    private Boolean ativo;
 
     public void atualizarinformacoes(@Valid DadosAtualizarHardware dados) {
         if (dados.tipo() != null) {
@@ -43,5 +50,9 @@ public class Hardware {
         if (dados.marca() != null) {
             this.marca = dados.marca();
         }
+    }
+
+    public void inativar() {
+        this.ativo = false;
     }
 }

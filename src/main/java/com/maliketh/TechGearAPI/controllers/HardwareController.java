@@ -36,7 +36,7 @@ public class HardwareController {
 
     @GetMapping
     public List<DadosListagemHardware> listar (){
-        return repository.findAll().stream().map(DadosListagemHardware::new).toList();
+        return repository.findAllByAtivoTrue().stream().map(DadosListagemHardware::new).toList();
     }
 
     @PutMapping
@@ -50,5 +50,12 @@ public class HardwareController {
     @Transactional
     public void excluir(@PathVariable Long id) {
         repository.deleteById(id);
+    }
+
+    @DeleteMapping("inativar/{id}")
+    @Transactional
+    public void inativar (@PathVariable Long id) {
+        var hardware = repository.getReferenceById(id);
+        hardware.inativar();
     }
 }
