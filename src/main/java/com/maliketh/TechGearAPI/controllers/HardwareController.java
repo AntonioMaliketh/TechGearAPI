@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-
 @RestController
 @RequestMapping("/hardwares")
 public class HardwareController {
@@ -83,5 +82,12 @@ public class HardwareController {
         hardware.reativar();
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DadosDetalhamentoHardware> detalhar(@PathVariable Long id) {
+        var hardware = repository.getReferenceById(id);
+        
+        return ResponseEntity.ok(new DadosDetalhamentoHardware(hardware));
     }
 }
