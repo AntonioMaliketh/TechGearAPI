@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
+
 
 @RestController
 @RequestMapping("/hardwares")
@@ -32,8 +34,13 @@ public class HardwareController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<> cadastrar(@RequestBody @Valid DadosCadastroHardware dados) {
-        repository.save(new Hardware(dados));
+    public ResponseEntity<DadosDetalhamentoHardware> cadastrar(@RequestBody @Valid DadosCadastroHardware dados, UriComponentsBuilder uriBuilder) {
+        var hardware = new Hardware(dados);
+        repository.save(hardware);
+
+        var uri = uriBuilder.path("/hardwares/{id}").buildAndExpand(hardware.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoHardware(hardware));
     }
 
     @GetMapping
