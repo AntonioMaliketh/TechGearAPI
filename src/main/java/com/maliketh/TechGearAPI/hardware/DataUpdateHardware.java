@@ -2,14 +2,14 @@ package com.maliketh.TechGearAPI.hardware;
 
 import jakarta.validation.constraints.NotNull;
 
-public record DadosAtualizarHardware(
+public record DataUpdateHardware(
     @NotNull
     Long id, 
     
-    Tipo tipo,
+    Category category,
     
-    String produto,
+    String product,
     
-    Marca marca) {
+    Brand brand) {
 
 }

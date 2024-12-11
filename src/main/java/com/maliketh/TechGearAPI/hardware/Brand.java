@@ -1,6 +1,6 @@
 package com.maliketh.TechGearAPI.hardware;
 
-public enum Marca {
+public enum Brand {
 
     LOGITECH,
     RAZER,

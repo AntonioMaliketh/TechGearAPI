@@ -14,12 +14,12 @@ public class Hardware {
         
     }
 
-    public Hardware(DadosCadastroHardware dados) {
-        this.ativo = true;
-        this.tipo = dados.tipo();
-        this.produto = dados.produto();
-        this.marca = dados.marca();
-        this.quantidade = dados.quantidade();
+    public Hardware(DataRegisterHardware data) {
+        this.active = true;
+        this.category = data.category();
+        this.product = data.product();
+        this.brand = data.brand();
+        this.quantity = data.quantity();
     }
 
     @Id 
@@ -27,36 +27,36 @@ public class Hardware {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private Tipo tipo;
+    private Category category;
 
-    private String produto;
+    private String product;
 
     @Enumerated(EnumType.STRING)
-    private Marca marca;
+    private Brand brand;
 
-    private int quantidade;
+    private int quantity;
 
-    private Boolean ativo;
+    private Boolean active;
 
-    public void atualizarinformacoes(@Valid DadosAtualizarHardware dados) {
-        if (dados.tipo() != null) {
-            this.tipo = dados.tipo();
+    public void updateinformation(@Valid DataUpdateHardware data) {
+        if (data.category() != null) {
+            this.category = data.category();
         }
 
-        if (dados.produto() != null) {
-            this.produto = dados.produto();
+        if (data.product() != null) {
+            this.product = data.product();
         }
 
-        if (dados.marca() != null) {
-            this.marca = dados.marca();
+        if (data.brand() != null) {
+            this.brand = data.brand();
         }
     }
 
-    public void inativar() {
-        this.ativo = false;
+    public void inactivate() {
+        this.active = false;
     }
 
-    public void reativar() {
-        this.ativo = true;
+    public void reactivate() {
+        this.active = true;
     }
 }

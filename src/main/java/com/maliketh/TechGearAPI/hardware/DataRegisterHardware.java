@@ -3,17 +3,17 @@ package com.maliketh.TechGearAPI.hardware;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 
-public record DadosCadastroHardware(
+public record DataRegisterHardware(
 
         
         @Enumerated
-        Tipo tipo,
+        Category category,
         
         @NotBlank
-        String produto,
+        String product,
 
         @Enumerated
-        Marca marca,
+        Brand brand,
 
-        int quantidade) {
+        int quantity) {
 }

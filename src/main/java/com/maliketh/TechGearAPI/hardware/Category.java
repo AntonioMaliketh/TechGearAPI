@@ -1,6 +1,6 @@
 package com.maliketh.TechGearAPI.hardware;
 
-public enum Tipo {
+public enum Category {
 
     MOUSE,
     TECLADO,
