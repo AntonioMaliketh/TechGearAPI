@@ -1,9 +1,9 @@
 create table hardware(
     id bigint not null auto_increment,
-    tipo varchar (100) not null,
-    produto varchar (100) not null,
-    marca varchar (100) not null,
-    quantidade int (20) not null,
+    category varchar (100) not null,
+    product varchar (100) not null,
+    brand varchar (100) not null,
+    quantity int (20) not null,
 
     primary key (id)
 );

@@ -1,9 +1,9 @@
 package com.maliketh.TechGearAPI.controllers;
 
-import com.maliketh.TechGearAPI.hardware.DadosAtualizarHardware;
-import com.maliketh.TechGearAPI.hardware.DadosCadastroHardware;
-import com.maliketh.TechGearAPI.hardware.DadosDetalhamentoHardware;
-import com.maliketh.TechGearAPI.hardware.DadosListagemHardware;
+import com.maliketh.TechGearAPI.hardware.DataUpdateHardware;
+import com.maliketh.TechGearAPI.hardware.DataRegisterHardware;
+import com.maliketh.TechGearAPI.hardware.DataDetailsHardware;
+import com.maliketh.TechGearAPI.hardware.DataListHardware;
 import com.maliketh.TechGearAPI.hardware.Hardware;
 import com.maliketh.TechGearAPI.hardware.HardwareRepository;
 
@@ -33,61 +33,61 @@ public class HardwareController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<DadosDetalhamentoHardware> cadastrar(@RequestBody @Valid DadosCadastroHardware dados, UriComponentsBuilder uriBuilder) {
-        var hardware = new Hardware(dados);
+    public ResponseEntity<DataDetailsHardware> register(@RequestBody @Valid DataRegisterHardware data, UriComponentsBuilder uriBuilder) {
+        var hardware = new Hardware(data);
         repository.save(hardware);
 
         var uri = uriBuilder.path("/hardwares/{id}").buildAndExpand(hardware.getId()).toUri();
 
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoHardware(hardware));
+        return ResponseEntity.created(uri).body(new DataDetailsHardware(hardware));
     }
 
     @GetMapping
-    public ResponseEntity<List<DadosListagemHardware>> listar (){
-        var lista = repository.findAllByAtivoTrue().stream().map(DadosListagemHardware::new).toList();
+    public ResponseEntity<List<DataListHardware>> listing (){
+        var list = repository.findAllByActiveTrue().stream().map(DataListHardware::new).toList();
 
-        return ResponseEntity.ok(lista);
+        return ResponseEntity.ok(list);
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity<DadosDetalhamentoHardware> atualizar(@RequestBody @Valid DadosAtualizarHardware dados) {
-        var hardware = repository.getReferenceById(dados.id());
-        hardware.atualizarinformacoes(dados);
+    public ResponseEntity<DataDetailsHardware> update(@RequestBody @Valid DataUpdateHardware data) {
+        var hardware = repository.getReferenceById(data.id());
+        hardware.updateinformation(data);
 
-        return ResponseEntity.ok(new DadosDetalhamentoHardware(hardware));
+        return ResponseEntity.ok(new DataDetailsHardware(hardware));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<Void> excluir(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         repository.deleteById(id);
         
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("inativar/{id}")
+    @DeleteMapping("inactivate/{id}")
     @Transactional
-    public ResponseEntity<Void> inativar (@PathVariable Long id) {
+    public ResponseEntity<Void> Inactivate (@PathVariable Long id) {
         var hardware = repository.getReferenceById(id);
-        hardware.inativar();
+        hardware.inactivate();
 
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("reativar/{id}")
+    @PutMapping("reactivate/{id}")
     @Transactional
-    public ResponseEntity<Void> Reativar(@PathVariable Long id) {
+    public ResponseEntity<Void> Reactivate (@PathVariable Long id) {
         var hardware = repository.getReferenceById(id);
-        hardware.reativar();
+        hardware.reactivate();
 
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DadosDetalhamentoHardware> detalhar(@PathVariable Long id) {
+    public ResponseEntity<DataDetailsHardware> Detail (@PathVariable Long id) {
         var hardware = repository.getReferenceById(id);
         
-        return ResponseEntity.ok(new DadosDetalhamentoHardware(hardware));
+        return ResponseEntity.ok(new DataDetailsHardware(hardware));
     }
 }
