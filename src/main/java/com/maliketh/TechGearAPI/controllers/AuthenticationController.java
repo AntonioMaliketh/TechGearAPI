@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.maliketh.TechGearAPI.infrastructure.DataTokenJWT;
 import com.maliketh.TechGearAPI.infrastructure.TokenService;
 import com.maliketh.TechGearAPI.users.DataAuthentication;
 import com.maliketh.TechGearAPI.users.User;
@@ -30,6 +31,8 @@ public class AuthenticationController {
         var token = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var authentication = manager.authenticate(token);
 
-        return ResponseEntity.ok(tokenService.generateToken((User)authentication.getPrincipal()));
+        var tokenJWT = tokenService.generateToken((User)authentication.getPrincipal());
+
+        return ResponseEntity.ok(new DataTokenJWT(tokenJWT));
     }
 }
