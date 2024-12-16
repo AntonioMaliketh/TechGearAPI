@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.maliketh.TechGearAPI.infrastructure.TokenService;
 import com.maliketh.TechGearAPI.users.DataAuthentication;
+import com.maliketh.TechGearAPI.users.User;
 
 import jakarta.validation.Valid;
 
@@ -20,12 +22,14 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationManager manager;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping
     public ResponseEntity<?> performLogin(@RequestBody @Valid DataAuthentication data) {
         var token = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var authentication = manager.authenticate(token);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(tokenService.generateToken((User)authentication.getPrincipal()));
     }
-
 }
