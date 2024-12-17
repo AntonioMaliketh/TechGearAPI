@@ -2,6 +2,7 @@ package com.maliketh.TechGearAPI.infrastructure;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -19,6 +20,10 @@ public class SecurityConfigurations {
     return http
       .csrf(custom -> custom.disable())
       .sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+      .authorizeHttpRequests(authorize -> authorize
+      .requestMatchers(HttpMethod.POST, "/login").permitAll()
+      .anyRequest().authenticated()
+      )
       .build();
   }
 
